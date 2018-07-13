@@ -1,6 +1,5 @@
 package com.drughi.vyng.mvp.play;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
@@ -8,10 +7,12 @@ import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.bluelinelabs.conductor.Controller;
 import com.drughi.vyng.R;
 import com.drughi.vyng.VyngApp;
+import com.drughi.vyng.data.model.GifMutable;
 import com.drughi.vyng.util.ArgBuilder;
 import com.google.android.exoplayer2.ExoPlayer;
 import com.google.android.exoplayer2.source.ExtractorMediaSource;
@@ -23,31 +24,43 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
+import io.objectbox.Box;
+import io.objectbox.BoxStore;
 
 public class PlayController extends Controller {
 
     @BindView(R.id.video_view)
     PlayerView playerView;
 
+    @BindView(R.id.thumb_up)
+    TextView thumbUp;
+
+    @BindView(R.id.thumb_down)
+    TextView thumbDown;
+
     @Inject
     ExoPlayer player;
 
-    private static final String VYNG_PLAYER = "exoplayer-vyng";
-    private static final String KEY_URL = "keyUrl";
+    @Inject
+    BoxStore boxStore;
 
-    private final String url;
+    private static final String VYNG_PLAYER = "exoplayer-vyng";
+    private static final String KEY_CLICKED_GIF = "keyClickedGif";
+
+    private final GifMutable clickedGif;
     private Unbinder unbinder;
 
-    public PlayController(final String url) {
+    public PlayController(final GifMutable gif) {
         this(new ArgBuilder(new Bundle())
-                .putString(KEY_URL, url)
+                .putParcelable(KEY_CLICKED_GIF, gif)
                 .build());
     }
 
     PlayController(Bundle args) {
         super(args);
-        url = getArgs().getString(KEY_URL);
+        clickedGif = getArgs().getParcelable(KEY_CLICKED_GIF);
     }
 
     @NonNull
@@ -57,15 +70,17 @@ public class PlayController extends Controller {
         ((VyngApp) getActivity().getApplication()).getAppComponent().inject(this);
 
         unbinder = ButterKnife.bind(this, view);
+        setViews();
         initializePlayer();
-
         return view;
     }
 
     @Override
     protected void onDetach(@NonNull View view) {
         super.onDetach(view);
-        player.setPlayWhenReady(false);
+        if(player != null) {
+            player.setPlayWhenReady(false);
+        }
     }
 
     @Override
@@ -81,12 +96,22 @@ public class PlayController extends Controller {
         releasePlayer();
     }
 
+    @OnClick(R.id.thumb_up)
+    public void countUp() {
+        updateVoteCount(true);
+    }
+
+    @OnClick(R.id.thumb_down)
+    public void countDown() {
+        updateVoteCount(false);
+    }
+
     private void initializePlayer() {
         playerView.setPlayer(player);
 
         player.setPlayWhenReady(true);
 
-        Uri uri = Uri.parse(url);
+        Uri uri = Uri.parse(clickedGif.getMp4());
         MediaSource mediaSource = buildMediaSource(uri);
         player.prepare(mediaSource, true, false);
     }
@@ -101,5 +126,27 @@ public class PlayController extends Controller {
             player.release();
             player = null;
         }
+    }
+
+    private void updateVoteCount(boolean isUp) {
+        Box<GifMutable> gifBox = boxStore.boxFor(GifMutable.class);
+        GifMutable mutable = gifBox.get(clickedGif.getId());
+        long newCount;
+
+        if(isUp) {
+            newCount = mutable.getUpVotes() + 1;
+            thumbUp.setText(String.valueOf(newCount));
+            mutable.setUpVotes(newCount);
+        } else {
+            newCount = mutable.getDownVotes() + 1;
+            thumbDown.setText(String.valueOf(newCount));
+            mutable.setDownVotes(newCount);
+        }
+        gifBox.put(mutable);
+    }
+
+    private void setViews() {
+        thumbUp.setText(String.valueOf(clickedGif.getUpVotes()));
+        thumbDown.setText(String.valueOf(clickedGif.getDownVotes()));
     }
 }

@@ -100,8 +100,8 @@ public class SearchController extends Controller implements SearchContractor.Vie
     }
 
     @Override
-    public void onGifClick(final String url) {
-        getRouter().pushController(RouterTransaction.with(new PlayController(url))
+    public void onGifClick(final GifMutable gifMutable) {
+        getRouter().pushController(RouterTransaction.with(new PlayController(gifMutable))
                 .pushChangeHandler(new FadeChangeHandler())
                 .popChangeHandler(new FadeChangeHandler()));
     }

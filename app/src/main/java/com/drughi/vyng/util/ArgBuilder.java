@@ -1,6 +1,7 @@
 package com.drughi.vyng.util;
 
 import android.os.Bundle;
+import android.os.Parcelable;
 
 public class ArgBuilder {
     private final Bundle bundle;
@@ -9,8 +10,8 @@ public class ArgBuilder {
         this.bundle = bundle;
     }
 
-    public ArgBuilder putString(String key, String value) {
-        bundle.putString(key, value);
+    public ArgBuilder putParcelable(String key, Parcelable value) {
+        bundle.putParcelable(key, value);
         return this;
     }
 

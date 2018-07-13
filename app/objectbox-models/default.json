@@ -5,7 +5,7 @@
   "entities": [
     {
       "id": "5:4754205046595620931",
-      "lastPropertyId": "3:2885610372967163791",
+      "lastPropertyId": "5:5193231036203466905",
       "name": "GifMutable",
       "properties": [
         {
@@ -19,6 +19,14 @@
         {
           "id": "3:2885610372967163791",
           "name": "mp4"
+        },
+        {
+          "id": "4:3473367240433074039",
+          "name": "upVotes"
+        },
+        {
+          "id": "5:5193231036203466905",
+          "name": "downVotes"
         }
       ],
       "relations": []

@@ -6,9 +6,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.drughi.vyng.R;
-import com.drughi.vyng.data.model.DataItem;
 import com.drughi.vyng.data.model.GifMutable;
 import com.squareup.picasso.Picasso;
 
@@ -47,6 +47,8 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
         GifMutable gif = getItem(position);
         final String thumbnailUrl = gif.getUrl();
         Picasso.with(viewHolder.image.getContext()).load(thumbnailUrl).into(viewHolder.image);
+        viewHolder.thumbUp.setText(String.valueOf(gif.getUpVotes()));
+        viewHolder.thumbDown.setText(String.valueOf(gif.getDownVotes()));
     }
 
     @Override
@@ -68,21 +70,27 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
         @BindView(R.id.image)
         ImageView image;
 
+        @BindView(R.id.thumb_up)
+        TextView thumbUp;
+
+        @BindView(R.id.thumb_down)
+        TextView thumbDown;
+
         ViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
         }
 
         @OnClick
-        public void onGifClick(View view) {
+        public void onGifClick() {
             int position = getAdapterPosition();
             GifMutable gif = getItem(position);
-            listener.onGifClick(gif.getMp4());
+            listener.onGifClick(gif);
         }
     }
 
     public interface GifClickListener {
-        void onGifClick(final String url);
+        void onGifClick(final GifMutable gifMutable);
     }
 }
 
