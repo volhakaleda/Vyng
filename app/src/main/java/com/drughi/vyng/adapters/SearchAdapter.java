@@ -9,7 +9,9 @@ import android.widget.ImageView;
 
 import com.drughi.vyng.R;
 
-
+/**
+ * Adapter used to display a grid of gifs pulled from {@link SearchRepository}
+ */
 public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder> {
 
     @NonNull

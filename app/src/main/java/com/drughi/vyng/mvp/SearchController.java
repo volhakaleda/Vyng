@@ -1,5 +1,6 @@
 package com.drughi.vyng.mvp;
 
+import android.app.Activity;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -10,12 +11,17 @@ import android.widget.EditText;
 
 import com.bluelinelabs.conductor.Controller;
 import com.drughi.vyng.R;
+import com.drughi.vyng.VyngApp;
 import com.drughi.vyng.adapters.SearchAdapter;
+import com.drughi.vyng.data.model.DataItem;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 
 public class SearchController extends Controller implements SearchContractor.View {
@@ -26,19 +32,21 @@ public class SearchController extends Controller implements SearchContractor.Vie
     @BindView(R.id.input)
     EditText search;
 
+    @Inject
     SearchPresenter presenter;
 
     private Unbinder unbinder;
     private SearchAdapter adapter;
 
     @Inject
-    public SearchController() {
+    SearchController() {
     }
 
     @NonNull
     @Override
     protected View onCreateView(@NonNull LayoutInflater inflater, @NonNull ViewGroup container) {
         View view = inflater.inflate(R.layout.search_controller, container, false);
+        ((VyngApp) getActivity().getApplication()).getAppComponent().inject(this);
 
         unbinder = ButterKnife.bind(this, view);
         presenter.setView(this);
@@ -54,19 +62,19 @@ public class SearchController extends Controller implements SearchContractor.Vie
         unbinder = null;
     }
 
+    @Override
+    protected void onActivityPaused(@NonNull Activity activity) {
+        super.onActivityPaused(activity);
+        presenter.unsubscribe();
+    }
 
-    private void setUpRecyclerView() {
-
-        GridLayoutManager manager = new GridLayoutManager(getActivity(), 3);
-        rec.setLayoutManager(manager);
-
-        adapter = new SearchAdapter();
-        rec.setAdapter(adapter);
-
+    @OnClick(R.id.search)
+    public void submit(View view) {
+        presenter.loadVideos(search.getText().toString());
     }
 
     @Override
-    public void showVideos() {
+    public void showVideos(List<DataItem> data) {
 
     }
 
@@ -75,9 +83,11 @@ public class SearchController extends Controller implements SearchContractor.Vie
 
     }
 
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        presenter.unsubscribe();
+    private void setUpRecyclerView() {
+        GridLayoutManager manager = new GridLayoutManager(getActivity(), 3);
+        rec.setLayoutManager(manager);
+
+        adapter = new SearchAdapter();
+        rec.setAdapter(adapter);
     }
 }

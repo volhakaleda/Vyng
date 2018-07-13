@@ -1,10 +1,14 @@
 package com.drughi.vyng.mvp;
 
+import com.drughi.vyng.data.model.DataItem;
+
+import java.util.List;
+
 public interface SearchContractor {
 
   interface View {
 
-    void showVideos();
+    void showVideos(List<DataItem> data);
 
     void showErrorMessage();
   }
@@ -13,5 +17,6 @@ public interface SearchContractor {
 
     void loadVideos(final String searchTerm);
 
+    void unsubscribe();
   }
 }
