@@ -4,17 +4,9 @@ import com.google.gson.annotations.SerializedName;
 
 public class DataItem {
 
-    private Original original;
-    
-    @SerializedName("fixed_height")
-    private FixedHeight fixedHeight;
+    private Image images;
 
-
-    public Original getOriginal() {
-        return original;
-    }
-
-    public FixedHeight getFixedHeight() {
-        return fixedHeight;
+    public Image getImages() {
+        return images;
     }
 }

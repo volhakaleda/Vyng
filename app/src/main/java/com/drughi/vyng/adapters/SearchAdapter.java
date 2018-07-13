@@ -8,11 +8,17 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.drughi.vyng.R;
+import com.drughi.vyng.data.model.DataItem;
+import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
- * Adapter used to display a grid of gifs pulled from {@link SearchRepository}
+ * Adapter used to display a grid of gifs pulled from {@link com.drughi.vyng.data.source.SearchRepository}
  */
 public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder> {
+    private final List<DataItem> list = new ArrayList<>();
 
     @NonNull
     @Override
@@ -24,15 +30,24 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder viewHolder, final int position) {
+        DataItem gif = getItem(position);
+        final String thumbnailUrl = gif.getImages().getOriginal().getUrl();
+        Picasso.with(viewHolder.image.getContext()).load(thumbnailUrl).into(viewHolder.image);
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return list.size();
     }
 
+    public void setData(final List<DataItem> gifs) {
+        this.list.clear();
+        this.list.addAll(gifs);
+        notifyDataSetChanged();
+    }
 
-    public void setData() {
+    private DataItem getItem(final int position) {
+        return list.get(position);
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {

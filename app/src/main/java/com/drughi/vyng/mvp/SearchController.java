@@ -74,8 +74,8 @@ public class SearchController extends Controller implements SearchContractor.Vie
     }
 
     @Override
-    public void showVideos(List<DataItem> data) {
-
+    public void showVideos(List<DataItem> gifs) {
+        adapter.setData(gifs);
     }
 
     @Override
