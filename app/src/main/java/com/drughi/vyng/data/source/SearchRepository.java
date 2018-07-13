@@ -32,4 +32,9 @@ public class SearchRepository {
         }
         return remoteDataSource.loadVideos(searchText);
     }
+
+    public long updateVoteCount(final long id, final boolean isUp) {
+        return localDataSource.updateVoteCount(id, isUp);
+    }
+
 }

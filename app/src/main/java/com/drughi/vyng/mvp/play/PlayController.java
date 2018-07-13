@@ -13,6 +13,7 @@ import com.bluelinelabs.conductor.Controller;
 import com.drughi.vyng.R;
 import com.drughi.vyng.VyngApp;
 import com.drughi.vyng.data.model.GifMutable;
+import com.drughi.vyng.data.source.SearchRepository;
 import com.drughi.vyng.util.ArgBuilder;
 import com.google.android.exoplayer2.ExoPlayer;
 import com.google.android.exoplayer2.source.ExtractorMediaSource;
@@ -44,7 +45,7 @@ public class PlayController extends Controller {
     ExoPlayer player;
 
     @Inject
-    BoxStore boxStore;
+    SearchRepository repo;
 
     private static final String VYNG_PLAYER = "exoplayer-vyng";
     private static final String KEY_CLICKED_GIF = "keyClickedGif";
@@ -129,20 +130,13 @@ public class PlayController extends Controller {
     }
 
     private void updateVoteCount(boolean isUp) {
-        Box<GifMutable> gifBox = boxStore.boxFor(GifMutable.class);
-        GifMutable mutable = gifBox.get(clickedGif.getId());
-        long newCount;
+        long newCount = repo.updateVoteCount(clickedGif.getId(), isUp);
 
         if(isUp) {
-            newCount = mutable.getUpVotes() + 1;
             thumbUp.setText(String.valueOf(newCount));
-            mutable.setUpVotes(newCount);
         } else {
-            newCount = mutable.getDownVotes() + 1;
             thumbDown.setText(String.valueOf(newCount));
-            mutable.setDownVotes(newCount);
         }
-        gifBox.put(mutable);
     }
 
     private void setViews() {
