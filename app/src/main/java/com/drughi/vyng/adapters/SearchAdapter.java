@@ -14,11 +14,24 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
 /**
  * Adapter used to display a grid of gifs pulled from {@link com.drughi.vyng.data.source.SearchRepository}
  */
 public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder> {
+
     private final List<DataItem> list = new ArrayList<>();
+    private final GifClickListener listener;
+
+    @Inject
+    public SearchAdapter(GifClickListener listener) {
+        this.listener = listener;
+    }
 
     @NonNull
     @Override
@@ -50,13 +63,25 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
         return list.get(position);
     }
 
-    static class ViewHolder extends RecyclerView.ViewHolder {
+    class ViewHolder extends RecyclerView.ViewHolder {
+        @BindView(R.id.image)
         ImageView image;
 
         ViewHolder(View itemView) {
             super(itemView);
-            image = itemView.findViewById(R.id.image);
+            ButterKnife.bind(this, itemView);
         }
+
+        @OnClick
+        public void onGifClick(View view) {
+            int position = getAdapterPosition();
+            DataItem gif = getItem(position);
+            listener.onGifClick(gif);
+        }
+    }
+
+    public interface GifClickListener {
+        void onGifClick(DataItem gif);
     }
 }
 

@@ -1,4 +1,4 @@
-package com.drughi.vyng.mvp;
+package com.drughi.vyng.mvp.search;
 
 import android.app.Activity;
 import android.support.annotation.NonNull;
@@ -10,10 +10,13 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 
 import com.bluelinelabs.conductor.Controller;
+import com.bluelinelabs.conductor.RouterTransaction;
+import com.bluelinelabs.conductor.changehandler.HorizontalChangeHandler;
 import com.drughi.vyng.R;
 import com.drughi.vyng.VyngApp;
 import com.drughi.vyng.adapters.SearchAdapter;
 import com.drughi.vyng.data.model.DataItem;
+import com.drughi.vyng.mvp.play.PlayController;
 
 import java.util.List;
 
@@ -24,7 +27,8 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 
-public class SearchController extends Controller implements SearchContractor.View {
+public class SearchController extends Controller implements SearchContractor.View,
+        SearchAdapter.GifClickListener{
 
     @BindView(R.id.rec)
     RecyclerView rec;
@@ -34,6 +38,9 @@ public class SearchController extends Controller implements SearchContractor.Vie
 
     @Inject
     SearchPresenter presenter;
+
+    @Inject
+    PlayController playController;
 
     private Unbinder unbinder;
     private SearchAdapter adapter;
@@ -86,8 +93,14 @@ public class SearchController extends Controller implements SearchContractor.Vie
     private void setUpRecyclerView() {
         GridLayoutManager manager = new GridLayoutManager(getActivity(), 3);
         rec.setLayoutManager(manager);
-
-        adapter = new SearchAdapter();
+        adapter = new SearchAdapter(this);
         rec.setAdapter(adapter);
+    }
+
+    @Override
+    public void onGifClick(DataItem gif) {
+        getRouter().pushController(RouterTransaction.with(playController)
+                .pushChangeHandler(new HorizontalChangeHandler())
+                .popChangeHandler(new HorizontalChangeHandler()));
     }
 }

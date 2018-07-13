@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import com.bluelinelabs.conductor.Conductor;
 import com.bluelinelabs.conductor.Router;
 import com.bluelinelabs.conductor.RouterTransaction;
-import com.drughi.vyng.mvp.SearchController;
+import com.drughi.vyng.mvp.search.SearchController;
 
 import javax.inject.Inject;
 

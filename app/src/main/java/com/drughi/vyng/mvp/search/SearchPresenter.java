@@ -1,4 +1,4 @@
-package com.drughi.vyng.mvp;
+package com.drughi.vyng.mvp.search;
 
 import com.drughi.vyng.data.model.SearchResponse;
 import com.drughi.vyng.data.source.SearchRepository;

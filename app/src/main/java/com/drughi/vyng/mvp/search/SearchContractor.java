@@ -1,4 +1,4 @@
-package com.drughi.vyng.mvp;
+package com.drughi.vyng.mvp.search;
 
 import com.drughi.vyng.data.model.DataItem;
 
