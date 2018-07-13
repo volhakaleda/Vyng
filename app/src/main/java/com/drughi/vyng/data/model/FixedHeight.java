@@ -12,4 +12,12 @@ public class FixedHeight {
     public String getMp4() {
         return mp4;
     }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public void setMp4(String mp4) {
+        this.mp4 = mp4;
+    }
 }

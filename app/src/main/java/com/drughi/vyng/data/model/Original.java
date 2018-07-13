@@ -1,7 +1,6 @@
 package com.drughi.vyng.data.model;
 
 public class Original {
-
     private String url;
     private String mp4;
 

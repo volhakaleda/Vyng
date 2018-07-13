@@ -1,0 +1,64 @@
+{
+  "_note1": "KEEP THIS FILE! Check it into a version control system (VCS) like git.",
+  "_note2": "ObjectBox manages crucial IDs for your object model. See docs for details.",
+  "_note3": "If you have VCS merge conflicts, you must resolve them according to ObjectBox docs.",
+  "entities": [
+    {
+      "id": "5:4754205046595620931",
+      "lastPropertyId": "3:2885610372967163791",
+      "name": "GifMutable",
+      "properties": [
+        {
+          "id": "1:6051915955726091591",
+          "name": "id"
+        },
+        {
+          "id": "2:511851973400441658",
+          "name": "url"
+        },
+        {
+          "id": "3:2885610372967163791",
+          "name": "mp4"
+        }
+      ],
+      "relations": []
+    }
+  ],
+  "lastEntityId": "5:4754205046595620931",
+  "lastIndexId": "3:2666729025827610571",
+  "lastRelationId": "0:0",
+  "lastSequenceId": "0:0",
+  "modelVersion": 4,
+  "modelVersionParserMinimum": 4,
+  "retiredEntityUids": [
+    1792838720178607071,
+    4617936067865815133,
+    9021749065847442848,
+    8379346976745807600
+  ],
+  "retiredIndexUids": [
+    7355833189628988039,
+    247947883237738956,
+    2666729025827610571
+  ],
+  "retiredPropertyUids": [
+    7143820965487088975,
+    5823177018049215760,
+    8982399611252143906,
+    4393307723111750830,
+    3149310751362092144,
+    8164549435072867303,
+    2847542694037511529,
+    5500453736232703171,
+    849714527576983235,
+    5410717508587891616,
+    8647675298047004711,
+    6913057853010414796,
+    6150394386990789462,
+    6869322673462994333,
+    3073186444747355235,
+    1914314739096969928
+  ],
+  "retiredRelationUids": [],
+  "version": 1
+}

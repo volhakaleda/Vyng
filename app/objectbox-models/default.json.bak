@@ -1,0 +1,106 @@
+{
+  "_note1": "KEEP THIS FILE! Check it into a version control system (VCS) like git.",
+  "_note2": "ObjectBox manages crucial IDs for your object model. See docs for details.",
+  "_note3": "If you have VCS merge conflicts, you must resolve them according to ObjectBox docs.",
+  "entities": [
+    {
+      "id": "1:8379346976745807600",
+      "lastPropertyId": "7:1914314739096969928",
+      "name": "DataItem",
+      "properties": [
+        {
+          "id": "5:6869322673462994333",
+          "name": "x"
+        },
+        {
+          "id": "6:3073186444747355235",
+          "name": "id"
+        },
+        {
+          "id": "7:1914314739096969928",
+          "indexId": "3:2666729025827610571",
+          "name": "imagesId"
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "2:4617936067865815133",
+      "lastPropertyId": "3:5410717508587891616",
+      "name": "Image",
+      "properties": [
+        {
+          "id": "1:5500453736232703171",
+          "name": "id"
+        },
+        {
+          "id": "2:849714527576983235",
+          "indexId": "1:7355833189628988039",
+          "name": "originalId"
+        },
+        {
+          "id": "3:5410717508587891616",
+          "indexId": "2:247947883237738956",
+          "name": "fixedHeightId"
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "3:9021749065847442848",
+      "lastPropertyId": "3:6150394386990789462",
+      "name": "FixedHeight",
+      "properties": [
+        {
+          "id": "1:8647675298047004711",
+          "name": "id"
+        },
+        {
+          "id": "2:6913057853010414796",
+          "name": "url"
+        },
+        {
+          "id": "3:6150394386990789462",
+          "name": "mp4"
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "4:1792838720178607071",
+      "lastPropertyId": "3:2847542694037511529",
+      "name": "Original",
+      "properties": [
+        {
+          "id": "1:3149310751362092144",
+          "name": "id"
+        },
+        {
+          "id": "2:8164549435072867303",
+          "name": "url"
+        },
+        {
+          "id": "3:2847542694037511529",
+          "name": "mp4"
+        }
+      ],
+      "relations": []
+    }
+  ],
+  "lastEntityId": "4:1792838720178607071",
+  "lastIndexId": "3:2666729025827610571",
+  "lastRelationId": "0:0",
+  "lastSequenceId": "0:0",
+  "modelVersion": 4,
+  "modelVersionParserMinimum": 4,
+  "retiredEntityUids": [],
+  "retiredIndexUids": [],
+  "retiredPropertyUids": [
+    7143820965487088975,
+    5823177018049215760,
+    8982399611252143906,
+    4393307723111750830
+  ],
+  "retiredRelationUids": [],
+  "version": 1
+}

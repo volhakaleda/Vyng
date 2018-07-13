@@ -9,7 +9,6 @@ public class Image {
     @SerializedName("fixed_height")
     private FixedHeight fixedHeight;
 
-
     public Original getOriginal() {
         return original;
     }

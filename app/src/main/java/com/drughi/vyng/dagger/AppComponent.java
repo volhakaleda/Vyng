@@ -17,5 +17,4 @@ public interface AppComponent {
   void inject(SearchController searchController);
 
   void inject(PlayController playController);
-
 }

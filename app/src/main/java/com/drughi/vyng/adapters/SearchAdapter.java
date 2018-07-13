@@ -9,6 +9,7 @@ import android.widget.ImageView;
 
 import com.drughi.vyng.R;
 import com.drughi.vyng.data.model.DataItem;
+import com.drughi.vyng.data.model.GifMutable;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -25,7 +26,7 @@ import butterknife.OnClick;
  */
 public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder> {
 
-    private final List<DataItem> list = new ArrayList<>();
+    private final List<GifMutable> list = new ArrayList<>();
     private final GifClickListener listener;
 
     @Inject
@@ -43,8 +44,8 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder viewHolder, final int position) {
-        DataItem gif = getItem(position);
-        final String thumbnailUrl = gif.getImages().getOriginal().getUrl();
+        GifMutable gif = getItem(position);
+        final String thumbnailUrl = gif.getUrl();
         Picasso.with(viewHolder.image.getContext()).load(thumbnailUrl).into(viewHolder.image);
     }
 
@@ -53,13 +54,13 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
         return list.size();
     }
 
-    public void setData(final List<DataItem> gifs) {
+    public void setData(final List<GifMutable> gifs) {
         this.list.clear();
         this.list.addAll(gifs);
         notifyDataSetChanged();
     }
 
-    private DataItem getItem(final int position) {
+    private GifMutable getItem(final int position) {
         return list.get(position);
     }
 
@@ -75,13 +76,13 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
         @OnClick
         public void onGifClick(View view) {
             int position = getAdapterPosition();
-            DataItem gif = getItem(position);
-            listener.onGifClick(gif);
+            GifMutable gif = getItem(position);
+            listener.onGifClick(gif.getMp4());
         }
     }
 
     public interface GifClickListener {
-        void onGifClick(DataItem gif);
+        void onGifClick(final String url);
     }
 }
 
