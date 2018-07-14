@@ -5,7 +5,7 @@ import com.drughi.vyng.data.model.GifMutable;
 
 import java.util.List;
 
-public interface SearchContractor {
+public interface SearchContract {
 
   interface View {
 
@@ -16,7 +16,7 @@ public interface SearchContractor {
 
   interface Presenter {
 
-    void loadVideos(final String searchTerm, final boolean isNewTerm);
+    void loadVideos(final String searchTerm);
 
     void unsubscribe();
   }

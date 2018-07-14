@@ -26,7 +26,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 
-public class SearchController extends Controller implements SearchContractor.View,
+public class SearchController extends Controller implements SearchContract.View,
         SearchAdapter.GifClickListener{
 
     @BindView(R.id.rec)
@@ -60,7 +60,7 @@ public class SearchController extends Controller implements SearchContractor.Vie
     @Override
     protected void onAttach(@NonNull View view) {
         super.onAttach(view);
-        presenter.loadVideos(search.getText().toString(), false);
+        presenter.loadVideos(search.getText().toString());
     }
 
     @Override
@@ -78,7 +78,7 @@ public class SearchController extends Controller implements SearchContractor.Vie
 
     @OnClick(R.id.search)
     public void submit() {
-        presenter.loadVideos(search.getText().toString(), true);
+        presenter.loadVideos(search.getText().toString());
     }
 
     @Override

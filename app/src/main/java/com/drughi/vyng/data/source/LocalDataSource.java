@@ -1,7 +1,10 @@
 package com.drughi.vyng.data.source;
 
+import android.support.annotation.NonNull;
+
 import com.drughi.vyng.data.model.GifMutable;
 import com.drughi.vyng.data.model.GifMutable_;
+import com.drughi.vyng.mvp.search.SearchContract;
 
 import java.util.List;
 
@@ -29,7 +32,7 @@ public class LocalDataSource {
      *                  from the API
      *
      * @return a list of gifs that have been mutated to be displayed in
-     * {@link com.drughi.vyng.mvp.search.SearchContractor.View}
+     * {@link SearchContract.View}
      */
     public List<GifMutable> getCachedGifs(final String searchText) {
         Box<GifMutable> gifBox = boxStore.boxFor(GifMutable.class);
@@ -62,6 +65,18 @@ public class LocalDataSource {
 
         gifBox.put(mutable);
         return newCount;
+    }
+
+    /**
+     * Gets a cached gif.
+     *
+     * @param id - gif id
+     * @return a cached gif
+     */
+    @NonNull
+    public GifMutable getCachedGif(final long id) {
+        Box<GifMutable> gifBox = boxStore.boxFor(GifMutable.class);
+        return gifBox.get(id);
     }
 
 }

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -69,7 +70,7 @@ public class PlayController extends Controller implements PlayContract.View{
 
         unbinder = ButterKnife.bind(this, view);
         presenter.setView(this);
-        setViews();
+        presenter.loadGifCount(clickedGif.getId());
         initializePlayer();
         return view;
     }
@@ -141,10 +142,5 @@ public class PlayController extends Controller implements PlayContract.View{
             player.release();
             player = null;
         }
-    }
-
-    private void setViews() {
-        thumbUp.setText(String.valueOf(clickedGif.getUpVotes()));
-        thumbDown.setText(String.valueOf(clickedGif.getDownVotes()));
     }
 }

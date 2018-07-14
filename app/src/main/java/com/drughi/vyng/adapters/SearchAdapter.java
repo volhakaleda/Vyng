@@ -6,10 +6,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.drughi.vyng.R;
 import com.drughi.vyng.data.model.GifMutable;
+import com.drughi.vyng.data.source.Repository;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -22,7 +22,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
- * Adapter used to display a grid of gifs pulled from {@link com.drughi.vyng.data.source.SearchRepository}
+ * Adapter used to display a grid of gifs pulled from {@link Repository}
  */
 public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder> {
 
@@ -47,8 +47,6 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
         GifMutable gif = getItem(position);
         final String thumbnailUrl = gif.getUrl();
         Picasso.with(viewHolder.image.getContext()).load(thumbnailUrl).into(viewHolder.image);
-        viewHolder.thumbUp.setText(String.valueOf(gif.getUpVotes()));
-        viewHolder.thumbDown.setText(String.valueOf(gif.getDownVotes()));
     }
 
     @Override
@@ -69,12 +67,6 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
     class ViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.image)
         ImageView image;
-
-        @BindView(R.id.thumb_up)
-        TextView thumbUp;
-
-        @BindView(R.id.thumb_down)
-        TextView thumbDown;
 
         ViewHolder(View itemView) {
             super(itemView);

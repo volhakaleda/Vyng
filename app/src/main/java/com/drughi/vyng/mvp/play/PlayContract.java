@@ -16,6 +16,8 @@ public interface PlayContract {
 
         void updateVoteCount(final long gifId, final boolean isUpVote);
 
+        void loadGifCount(final long gifId);
+
         void unsubscribe();
     }
 }

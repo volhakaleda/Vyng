@@ -1,7 +1,7 @@
 package com.drughi.vyng.mvp.search;
 
 import com.drughi.vyng.data.model.GifMutable;
-import com.drughi.vyng.data.source.SearchRepository;
+import com.drughi.vyng.data.source.Repository;
 
 import java.util.List;
 
@@ -12,24 +12,24 @@ import io.reactivex.observers.DisposableSingleObserver;
 import io.reactivex.schedulers.Schedulers;
 
 /**
- * Presenter that connects to the {@link SearchRepository} to load gifs
+ * Presenter that connects to the {@link Repository} to load gifs
  */
-class SearchPresenter implements SearchContractor.Presenter {
+class SearchPresenter implements SearchContract.Presenter {
 
-  private SearchContractor.View view;
-  private SearchRepository repo;
+  private SearchContract.View view;
+  private Repository repo;
   private DisposableSingleObserver<List<GifMutable>> disposable;
 
   @Inject
-  public SearchPresenter(SearchRepository repo) {
+  public SearchPresenter(Repository repo) {
     this.repo = repo;
   }
 
   /**
-   * Connects {@link SearchContractor.View} to the presenter
+   * Connects {@link SearchContract.View} to the presenter
    * @param view
    */
-  public void setView(SearchContractor.View view) {
+  public void setView(SearchContract.View view) {
     this.view = view;
   }
 
@@ -39,7 +39,7 @@ class SearchPresenter implements SearchContractor.Presenter {
    * @param searchTerm - user input
    */
   @Override
-  public void loadVideos(final String searchTerm, final boolean isNewTerm) {
+  public void loadVideos(final String searchTerm) {
     disposable = new DisposableSingleObserver<List<GifMutable>>() {
 
       @Override
@@ -54,7 +54,7 @@ class SearchPresenter implements SearchContractor.Presenter {
 
     };
 
-    repo.loadVideos(searchTerm, isNewTerm)
+    repo.loadVideos(searchTerm)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(disposable);
