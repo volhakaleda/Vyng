@@ -64,7 +64,7 @@ public class PlayController extends Controller implements PlayContract.View{
                 .build());
     }
 
-    PlayController(Bundle args) {
+    public PlayController(Bundle args) {
         super(args);
         clickedGif = getArgs().getParcelable(KEY_CLICKED_GIF);
     }

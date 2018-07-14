@@ -19,9 +19,6 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.controller_container)
     ViewGroup container;
 
-    @Inject
-    SearchController controller;
-
     private Router router;
 
     @Override
@@ -34,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
 
         router = Conductor.attachRouter(this, container, savedInstanceState);
         if (!router.hasRootController()) {
-            router.setRoot(RouterTransaction.with(controller));
+            router.setRoot(RouterTransaction.with(new SearchController()));
         }
     }
 

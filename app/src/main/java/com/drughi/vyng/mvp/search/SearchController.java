@@ -45,10 +45,6 @@ public class SearchController extends Controller implements SearchContract.View,
     private Unbinder unbinder;
     private SearchAdapter adapter;
 
-    @Inject
-    SearchController() {
-    }
-
     @NonNull
     @Override
     protected View onCreateView(@NonNull LayoutInflater inflater, @NonNull ViewGroup container) {
