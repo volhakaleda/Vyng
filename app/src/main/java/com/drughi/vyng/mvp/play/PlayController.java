@@ -13,7 +13,6 @@ import com.bluelinelabs.conductor.Controller;
 import com.drughi.vyng.R;
 import com.drughi.vyng.VyngApp;
 import com.drughi.vyng.data.model.GifMutable;
-import com.drughi.vyng.data.source.SearchRepository;
 import com.drughi.vyng.util.ArgBuilder;
 import com.google.android.exoplayer2.ExoPlayer;
 import com.google.android.exoplayer2.source.ExtractorMediaSource;
@@ -28,7 +27,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 
-public class PlayController extends Controller {
+public class PlayController extends Controller implements PlayContract.View{
 
     @BindView(R.id.video_view)
     PlayerView playerView;
@@ -43,7 +42,7 @@ public class PlayController extends Controller {
     ExoPlayer player;
 
     @Inject
-    SearchRepository repo;
+    PlayPresenter presenter;
 
     private static final String VYNG_PLAYER = "exoplayer-vyng";
     private static final String KEY_CLICKED_GIF = "keyClickedGif";
@@ -69,6 +68,7 @@ public class PlayController extends Controller {
         ((VyngApp) getActivity().getApplication()).getAppComponent().inject(this);
 
         unbinder = ButterKnife.bind(this, view);
+        presenter.setView(this);
         setViews();
         initializePlayer();
         return view;
@@ -80,6 +80,7 @@ public class PlayController extends Controller {
         if(player != null) {
             player.setPlayWhenReady(false);
         }
+        presenter.unsubscribe();
     }
 
     @Override
@@ -97,12 +98,27 @@ public class PlayController extends Controller {
 
     @OnClick(R.id.thumb_up)
     public void countUp() {
-        updateVoteCount(true);
+        presenter.updateVoteCount(clickedGif.getId(), true);
     }
 
     @OnClick(R.id.thumb_down)
     public void countDown() {
-        updateVoteCount(false);
+        presenter.updateVoteCount(clickedGif.getId(), false);
+    }
+
+    @Override
+    public void showUpdatedUpVoteCount(final long newVoteCount) {
+        thumbUp.setText(String.valueOf(newVoteCount));
+    }
+
+    @Override
+    public void showUpdatedDownVoteCount(final long newVoteCount) {
+        thumbDown.setText(String.valueOf(newVoteCount));
+    }
+
+    @Override
+    public void showErrorMessage() {
+
     }
 
     private void initializePlayer() {
@@ -124,16 +140,6 @@ public class PlayController extends Controller {
         if (player != null) {
             player.release();
             player = null;
-        }
-    }
-
-    private void updateVoteCount(boolean isUp) {
-        long newCount = repo.updateVoteCount(clickedGif.getId(), isUp);
-
-        if(isUp) {
-            thumbUp.setText(String.valueOf(newCount));
-        } else {
-            thumbDown.setText(String.valueOf(newCount));
         }
     }
 
