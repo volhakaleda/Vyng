@@ -14,7 +14,6 @@ import com.bluelinelabs.conductor.changehandler.FadeChangeHandler;
 import com.drughi.vyng.R;
 import com.drughi.vyng.VyngApp;
 import com.drughi.vyng.adapters.SearchAdapter;
-import com.drughi.vyng.data.model.DataItem;
 import com.drughi.vyng.data.model.GifMutable;
 import com.drughi.vyng.mvp.play.PlayController;
 
@@ -61,7 +60,7 @@ public class SearchController extends Controller implements SearchContractor.Vie
     @Override
     protected void onAttach(@NonNull View view) {
         super.onAttach(view);
-        presenter.loadVideos("", false);
+        presenter.loadVideos(search.getText().toString(), false);
     }
 
     @Override

@@ -36,16 +36,16 @@ public class RemoteDataSource {
             @Override
             public List<GifMutable> apply(SearchResponse searchResponse) throws Exception {
                 List<DataItem> gifs = searchResponse.getData();
-                return cacheGifsLocally(gifs);
+                return cacheGifsLocally(gifs, searchText);
             }
         });
     }
 
-    private List<GifMutable> cacheGifsLocally(List<DataItem> gifs) {
+    private List<GifMutable> cacheGifsLocally(final List<DataItem> gifs, final String searchText) {
         List<GifMutable> mutables = new ArrayList<>();
         for(DataItem apiGif : gifs) {
             Original image = apiGif.getImages().getOriginal();
-            GifMutable mutable = new GifMutable(image.getUrl(), image.getMp4());
+            GifMutable mutable = new GifMutable(image.getUrl(), image.getMp4(), searchText);
             mutables.add(mutable);
         }
 

@@ -1,18 +1,13 @@
 package com.drughi.vyng.mvp.search;
 
-import com.drughi.vyng.data.model.DataItem;
 import com.drughi.vyng.data.model.GifMutable;
 import com.drughi.vyng.data.source.SearchRepository;
-
-import org.reactivestreams.Subscriber;
 
 import java.util.List;
 
 import javax.inject.Inject;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.observers.DisposableObserver;
 import io.reactivex.observers.DisposableSingleObserver;
 import io.reactivex.schedulers.Schedulers;
 

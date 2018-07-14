@@ -26,7 +26,7 @@ public class SearchRepository {
     }
 
     public Single<List<GifMutable>> loadVideos(@NonNull final String searchText, final boolean isNewTerm) {
-        List<GifMutable> cachedGifs = localDataSource.getCachedGifs();
+        List<GifMutable> cachedGifs = localDataSource.getCachedGifs(searchText);
         if(cachedGifs != null && !cachedGifs.isEmpty() && !isNewTerm) {
             return Single.just(cachedGifs);
         }

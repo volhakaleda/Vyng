@@ -27,8 +27,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
-import io.objectbox.Box;
-import io.objectbox.BoxStore;
 
 public class PlayController extends Controller {
 

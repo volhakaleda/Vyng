@@ -15,10 +15,12 @@ public class GifMutable implements Parcelable{
     private String mp4;
     private long upVotes;
     private long downVotes;
+    private String searchText;
 
-    public GifMutable(String url, String mp4) {
+    public GifMutable(String url, String mp4, String searchText) {
         this.url = url;
         this.mp4 = mp4;
+        this.searchText = searchText;
     }
 
     public long getId() {
@@ -61,6 +63,13 @@ public class GifMutable implements Parcelable{
         this.downVotes = downVotes;
     }
 
+    public String getSearchText() {
+        return searchText;
+    }
+
+    public void setSearchText(String searchText) {
+        this.searchText = searchText;
+    }
 
     @Override
     public int describeContents() {
@@ -74,6 +83,7 @@ public class GifMutable implements Parcelable{
         dest.writeString(this.mp4);
         dest.writeLong(this.upVotes);
         dest.writeLong(this.downVotes);
+        dest.writeString(this.searchText);
     }
 
     protected GifMutable(Parcel in) {
@@ -82,6 +92,7 @@ public class GifMutable implements Parcelable{
         this.mp4 = in.readString();
         this.upVotes = in.readLong();
         this.downVotes = in.readLong();
+        this.searchText = in.readString();
     }
 
     public static final Creator<GifMutable> CREATOR = new Creator<GifMutable>() {
