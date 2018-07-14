@@ -3,5 +3,6 @@
     <string name="search_hint">type in search term</string>
     <string name="search">search</string>
     <string name="main_image">main gif image</string>
+    <string name="general_error_message">Sorry, the action is not available at the moment</string>
 
 </resources>

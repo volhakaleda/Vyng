@@ -3,6 +3,9 @@ package com.drughi.vyng.util;
 import android.os.Bundle;
 import android.os.Parcelable;
 
+/**
+ * Utility class to populate bundle with data
+ */
 public class ArgBuilder {
     private final Bundle bundle;
 

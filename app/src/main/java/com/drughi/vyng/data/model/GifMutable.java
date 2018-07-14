@@ -6,6 +6,9 @@ import android.os.Parcelable;
 import io.objectbox.annotation.Entity;
 import io.objectbox.annotation.Id;
 
+/**
+ * Mutable Model that is stored in local data source and passed to views.
+ */
 @Entity
 public class GifMutable implements Parcelable{
 

@@ -28,11 +28,9 @@ public class LocalDataSource {
     /**
      * Pulls all cached gifs related to user's search input.
      *
-     * @param searchText - the most recently typed in search term used to pull all the relevant gifs
-     *                  from the API
+     * @param searchText - the most recently typed in search term used to pull all relevant gifs
      *
-     * @return a list of gifs that have been mutated to be displayed in
-     * {@link SearchContract.View}
+     * @return a list of gifs that have been mutated to be displayed in {@link SearchContract.View}
      */
     public List<GifMutable> getCachedGifs(final String searchText) {
         Box<GifMutable> gifBox = boxStore.boxFor(GifMutable.class);

@@ -1,6 +1,8 @@
 package com.drughi.vyng.mvp.play;
 
-
+/**
+ * Contract that defines methods to be implemeted by View and Presenter
+ */
 public interface PlayContract {
 
     interface View {

@@ -4,11 +4,11 @@ import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bluelinelabs.conductor.Controller;
 import com.drughi.vyng.R;
@@ -28,6 +28,13 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 
+/**
+ * View that plays a gif and provides info about upvotes and downvotes.
+ *
+ * Things to improve:
+ * 1. In landscape mode the player covers upvote/downvote counts. UX need to be improved.
+ * 2. Scale the video proportionally.
+ */
 public class PlayController extends Controller implements PlayContract.View{
 
     @BindView(R.id.video_view)
@@ -119,7 +126,7 @@ public class PlayController extends Controller implements PlayContract.View{
 
     @Override
     public void showErrorMessage() {
-
+        Toast.makeText(getActivity(), R.string.general_error_message, Toast.LENGTH_LONG).show();
     }
 
     private void initializePlayer() {

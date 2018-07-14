@@ -10,12 +10,13 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.observers.DisposableSingleObserver;
 import io.reactivex.schedulers.Schedulers;
 
+/**
+ * Presenter to handle vote actions.
+ */
 public class PlayPresenter implements PlayContract.Presenter {
 
     private PlayContract.View view;
     private Repository repo;
-    private DisposableSingleObserver<Long> countDisposable;
-    private DisposableSingleObserver<GifMutable> gifDisposable;
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
 
     @Inject
@@ -32,26 +33,32 @@ public class PlayPresenter implements PlayContract.Presenter {
         this.view = view;
     }
 
+    /**
+     * Sends event to {@link Repository} to update vote count.
+     *
+     * @param gifId - gif id
+     * @param isUpVote - the flag indication whether upvote or downvote action took place
+     */
     @Override
     public void updateVoteCount(long gifId, final boolean isUpVote) {
 
-        countDisposable = new DisposableSingleObserver<Long>() {
+        DisposableSingleObserver<Long> countDisposable = new DisposableSingleObserver<Long>() {
 
-            @Override
-            public void onSuccess(Long count) {
-                if (isUpVote) {
-                    view.showUpdatedUpVoteCount(count);
-                } else {
-                    view.showUpdatedDownVoteCount(count);
-                }
-            }
+                    @Override
+                    public void onSuccess(Long count) {
+                        if (isUpVote) {
+                            view.showUpdatedUpVoteCount(count);
+                        } else {
+                            view.showUpdatedDownVoteCount(count);
+                        }
+                    }
 
-            @Override
-            public void onError(Throwable throwable) {
-                view.showErrorMessage();
-            }
+                    @Override
+                    public void onError(Throwable throwable) {
+                        view.showErrorMessage();
+                    }
 
-        };
+                };
 
         compositeDisposable.add(countDisposable);
 
@@ -61,10 +68,15 @@ public class PlayPresenter implements PlayContract.Presenter {
                 .subscribe(countDisposable);
     }
 
+    /**
+     * Sends event to {@link Repository} to get the number of upvotes and downvotes.
+     *
+     * @param gifId - gif id
+     */
     @Override
     public void loadGifCount(final long gifId) {
 
-        gifDisposable = new DisposableSingleObserver<GifMutable>() {
+        DisposableSingleObserver<GifMutable> gifDisposable = new DisposableSingleObserver<GifMutable>() {
 
             @Override
             public void onSuccess(GifMutable gif) {
@@ -88,7 +100,7 @@ public class PlayPresenter implements PlayContract.Presenter {
     }
 
     /**
-     * Clear all disposables to avoid memory leaks
+     * Clears all disposables to avoid memory leaks.
      */
     @Override
     public void unsubscribe() {

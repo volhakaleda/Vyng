@@ -1,4 +1,4 @@
-package com.drughi.vyng.data.model;
+package com.drughi.vyng.data.model.apiUnmutableModels;
 
 import com.google.gson.annotations.SerializedName;
 

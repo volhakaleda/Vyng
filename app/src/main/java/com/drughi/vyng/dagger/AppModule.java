@@ -32,12 +32,22 @@ public class AppModule {
     this.application = application;
   }
 
+  /**
+   * Provides context singleton.
+   *
+   * @return context
+   */
   @Provides
   @Singleton
   public Context provideContext() {
     return application;
   }
 
+  /**
+   * Provides Retrofit singleton setup for Gson and RxJava.
+   *
+   * @return Retrofit instance
+   */
   @Provides
   @Singleton
   public Retrofit provideRetrofit() {
@@ -49,12 +59,24 @@ public class AppModule {
     return retrofit;
   }
 
+  /**
+   * Provides Retrofit service singleton.
+   *
+   * @param retrofit - retrofit instance
+   * @return Retrofit service
+   */
   @Provides
   @Singleton
   public VyngService provideService(Retrofit retrofit) {
     return retrofit.create(VyngService.class);
   }
 
+  /**
+   * Provides ExoPlayer instance.
+   *
+   * @param context
+   * @return simple instance of ExoPlayer
+   */
   @Provides
   @Singleton
   public ExoPlayer providesPlayer(Context context) {
@@ -67,6 +89,12 @@ public class AppModule {
     return ExoPlayerFactory.newSimpleInstance(context, trackSelector);
   }
 
+  /**
+   * Provides BoxStore singleton.
+   *
+   * @param context
+   * @return BoxStore instance
+   */
   @Provides
   @Singleton
   public BoxStore provideBoxStore(Context context) {

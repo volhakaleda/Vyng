@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.bluelinelabs.conductor.Controller;
 import com.bluelinelabs.conductor.RouterTransaction;
@@ -26,6 +27,9 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 
+/**
+ * View to display a list of gifs based on user's input
+ */
 public class SearchController extends Controller implements SearchContract.View,
         SearchAdapter.GifClickListener{
 
@@ -88,9 +92,11 @@ public class SearchController extends Controller implements SearchContract.View,
 
     @Override
     public void showErrorMessage() {
-
+        Toast.makeText(getActivity(), R.string.general_error_message, Toast.LENGTH_LONG).show();
     }
 
+    //Things to improve: the number of columns is hardcoded in this example. Ideally it should be
+    // defined dynamically based on device congifs
     private void setUpRecyclerView() {
         GridLayoutManager manager = new GridLayoutManager(getActivity(), 3);
         rec.setLayoutManager(manager);

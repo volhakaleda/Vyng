@@ -34,7 +34,7 @@ class SearchPresenter implements SearchContract.Presenter {
   }
 
   /**
-   *  Loads paginated list of related gifs based on user search term
+   *  Loads a paginated list of related gifs based on user search term.
    *
    * @param searchTerm - user input
    */
@@ -61,7 +61,7 @@ class SearchPresenter implements SearchContract.Presenter {
   }
 
   /**
-   * Unsubscribe from search subscription to avoid memory leaks
+   * Unsubscribe from search subscription to avoid memory leaks.
    */
   @Override
   public void unsubscribe() {

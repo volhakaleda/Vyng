@@ -1,6 +1,5 @@
 package com.drughi.vyng;
 
-import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.ViewGroup;
@@ -9,8 +8,6 @@ import com.bluelinelabs.conductor.Conductor;
 import com.bluelinelabs.conductor.Router;
 import com.bluelinelabs.conductor.RouterTransaction;
 import com.drughi.vyng.mvp.search.SearchController;
-import com.google.android.exoplayer2.ExoPlayer;
-import com.google.android.exoplayer2.source.MediaSource;
 
 import javax.inject.Inject;
 
